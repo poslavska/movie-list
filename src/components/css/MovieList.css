@@ -1,0 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 1.625rem;
+  text-align: center;
+  margin-top: 1.625em;
+  margin-bottom: 1.4em;
+}
+
+.movie-list,
+.movies-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.movie-list {
+  padding-bottom: 3em;
+}
+
+.movies-wrapper {
+  gap: 3.5em;
+}

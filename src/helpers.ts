@@ -38,6 +38,7 @@ export async function fetchMovies(dispatch: AppDispatch) {
   const token = checkToken() || ""
 
   try {
+    //response from /movies didn't include actors in the movies for some reason
     const response = await fetch(`${import.meta.env.VITE_API_URL}/movies`, {
       method: 'GET',
       headers: {
@@ -46,7 +47,22 @@ export async function fetchMovies(dispatch: AppDispatch) {
       }
     })
     const moviesData = await response.json()
-    dispatch(setMovies(moviesData.data))
+
+    //'fetch' for each movie by its id to get the list of actors
+    const detailedMovies = await Promise.all(
+      moviesData.data.map(async (movie: { id: number }) => {
+        const movieRes = await fetch(`${import.meta.env.VITE_API_URL}/movies/${movie.id}`, {
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json"
+          }
+        })
+        const movieData = await movieRes.json()
+        return movieData.data
+      })
+    )
+
+    dispatch(setMovies(detailedMovies))
   } catch (err) {
     console.log("Error while fetching movies", err)
   }
@@ -64,14 +80,14 @@ export async function addMovie() {
       },
       body: JSON.stringify(
         {
-          "title": "Once Upon a Time... in Hollywood",
-          "year": 2019,
-          "format": "DVD",
+          "title": "Blade Runner",
+          "year": 1982,
+          "format": "VHS",
           "actors": [
-              "Leonardo DiCaprio",
-              "Brad Pitt",
-              "Margot Robbie",
-              "Margaret Qualley"
+            "Harrison Ford",
+            "Rutger Hauer",
+            "Sean Young",
+            "Joanna Cassidy"
           ]
         }
       )
