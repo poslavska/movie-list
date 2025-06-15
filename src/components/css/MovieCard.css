@@ -1,0 +1,63 @@
+.movie-card {
+  justify-content: center;
+  align-items: center;
+  gap: 1.9em;
+  border-radius: 6px;
+  padding: 1em 0.75em;
+  max-width: 460px;
+}
+
+.movie-card-top,
+.movie-info-wrapper,
+.movie-card,
+.movie-info {
+  display: flex;
+}
+
+.movie-info-wrapper {
+  flex-direction: column;
+}
+
+.movie-info {
+  justify-content: space-between;
+  gap: 1em;
+}
+
+.dvd-background {
+  background-color: #a2d9f7;
+}
+
+.vhs-background {
+  background-color: #fae5bf;
+}
+
+.movie-format {
+  width: 53px;
+  height: 53px;
+}
+
+.delete-img {
+  align-self: flex-start;
+  width: 39px;
+  height: 39px;
+}
+
+.delete-img:hover {
+  opacity: 0.7;
+}
+
+.movie-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.45em;
+}
+
+.movie-year {
+  font-size: 1.125rem;
+  margin-bottom: 1.4em;
+  font-weight: 500;
+}
+
+.movie-actors {
+  font-size: 1.0625rem;
+}

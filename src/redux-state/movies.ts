@@ -1,11 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+export type ActorType = {
+  id: number,
+  name: string
+}
+
 export type MovieType = {
   id: number,
   title: string,
   format: "DVD" | "VHS"
   year: number,
-  actors: string[]
+  actors: ActorType[]
 }
 
 const initialState: { data: MovieType[]} = { data: []}
