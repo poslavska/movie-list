@@ -23,13 +23,6 @@
   gap: 1em;
 }
 
-button {
-  border: none;
-  background: none;
-  align-self: flex-start;
-  width: 38px;
-  height: 38px;
-}
 
 .dvd-background {
   background-color: #a2d9f7;
@@ -44,6 +37,21 @@ button {
 .movie-format {
   width: 53px;
   height: 53px;
+}
+
+.delete-btn {
+  border: none;
+  background: none;
+  border-radius: 50%;
+  align-self: flex-start;
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.delete-btn:hover {
+  background-color: #ff9595;
 }
 
 .delete-img {
