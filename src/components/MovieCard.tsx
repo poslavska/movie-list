@@ -25,7 +25,9 @@ export default function MovieCard({ movie }: MovieCardProps) {
           <p className='movie-year'>{movie.year}</p>
           <p className='movie-actors'>{movie.actors.map(actor => actor.name).join(", ")}</p>
         </div>
-        <button onClick={() => dispatch(deleteMovie(movie.id))}><img src={deleteImg} className='delete-img' alt="delete icon" /></button>
+        <button onClick={() => dispatch(deleteMovie(movie.id))} className='delete-btn'>
+          <img src={deleteImg} className='delete-img' alt="delete icon" />
+        </button>
       </div>
     </div>
   )
