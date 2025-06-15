@@ -1,4 +1,4 @@
-import { setMovies } from "./redux-state/movies"
+import { deleteMovie, setMovies } from "./redux-state/movies"
 import type { AppDispatch } from "./redux-state/store"
 
 export async function createSession(){
@@ -65,6 +65,23 @@ export async function fetchMovies(dispatch: AppDispatch) {
     dispatch(setMovies(detailedMovies))
   } catch (err) {
     console.log("Error while fetching movies", err)
+  }
+}
+
+export async function deleteMovieById(id:number, dispatch: AppDispatch) {
+  const token = checkToken() || ""
+
+  try {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/movies/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': token,
+        'Content-Type': 'application/json'
+      }
+    })
+    dispatch(deleteMovie(id))
+  } catch (err) {
+    console.log("Error while deleting a movie", err)
   }
 }
 

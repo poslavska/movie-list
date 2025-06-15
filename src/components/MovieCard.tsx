@@ -1,15 +1,18 @@
 import { useState } from 'react'
-import type { MovieType } from '../redux-state/movies'
+import { deleteMovie, type MovieType } from '../redux-state/movies'
 import dvdImg from '../assets/cd.png'
 import vhsImg from '../assets/vhs.png'
 import deleteImg from '../assets/delete.png'
 import './css/MovieCard.css'
+import { useDispatch } from 'react-redux'
+import type { AppDispatch } from '../redux-state/store'
 
 type MovieCardProps = {
   movie: MovieType
 }
 
 export default function MovieCard({ movie }: MovieCardProps) {
+  const dispatch = useDispatch<AppDispatch>()
   const [isDvd, setIsDvd] = useState(movie.format === "DVD")
 
   return (
@@ -22,7 +25,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
           <p className='movie-year'>{movie.year}</p>
           <p className='movie-actors'>{movie.actors.map(actor => actor.name).join(", ")}</p>
         </div>
-        <img src={deleteImg} className='delete-img' alt="delete icon" />
+        <button onClick={() => dispatch(deleteMovie(movie.id))}><img src={deleteImg} className='delete-img' alt="delete icon" /></button>
       </div>
     </div>
   )
