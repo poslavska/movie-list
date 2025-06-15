@@ -22,9 +22,12 @@ export const moviesSlice = createSlice({
     // getMovies: (state) => state
     setMovies: (state, action) => {
       state.data = action.payload
+    },
+    deleteMovie: (state, action) => {
+      state.data = state.data.filter(movie => movie.id !== action.payload)
     }
   }
 })
 
-export const { setMovies } = moviesSlice.actions
+export const { setMovies, deleteMovie } = moviesSlice.actions
 export default moviesSlice.reducer

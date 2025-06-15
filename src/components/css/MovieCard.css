@@ -2,7 +2,7 @@
   justify-content: center;
   align-items: center;
   gap: 1.9em;
-  border-radius: 6px;
+  border-radius: 5px;
   padding: 1em 0.75em;
   max-width: 460px;
 }
@@ -23,12 +23,22 @@
   gap: 1em;
 }
 
+button {
+  border: none;
+  background: none;
+  align-self: flex-start;
+  width: 38px;
+  height: 38px;
+}
+
 .dvd-background {
   background-color: #a2d9f7;
+  box-shadow: -4.8px 6px 4.9px #9cc0d2;
 }
 
 .vhs-background {
   background-color: #fae5bf;
+  box-shadow: -4.8px 6px 4.9px #cbbc9e;
 }
 
 .movie-format {
@@ -37,9 +47,8 @@
 }
 
 .delete-img {
-  align-self: flex-start;
-  width: 39px;
-  height: 39px;
+  width: 38px;
+  height: 38px;
 }
 
 .delete-img:hover {
@@ -54,7 +63,7 @@
 
 .movie-year {
   font-size: 1.125rem;
-  margin-bottom: 1.4em;
+  margin-bottom: 1.8em;
   font-weight: 500;
 }
 
