@@ -23,3 +23,31 @@ h1 {
 .movies-wrapper {
   gap: 3.5em;
 }
+
+.movies-sort {
+  display: flex;
+  justify-content: start;
+  gap: 1.5em;
+  margin-bottom: 1.25em;
+}
+
+.sort-text {
+  font-size: 1.125rem;
+  font-weight: 400;
+}
+
+.sort-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  border: 0;
+  background: none;
+  font-size: 1.125rem;
+  color: #237bf7;
+  cursor: pointer;
+}
+
+.sort-icon {
+  width: 23px;
+  height: 23px;
+}

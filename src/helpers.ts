@@ -85,6 +85,38 @@ export async function deleteMovieById(id:number, dispatch: AppDispatch) {
   }
 }
 
+export async function sortAlphabetically(sort: string, order: string, dispatch: AppDispatch) {
+  const token = checkToken() || ""
+
+  try {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/movies?sort=${sort}&order=${order}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': token,
+        'Content-Type': 'application/json'
+      }
+    })
+    const moviesData = await response.json()
+
+    const detailedMovies = await Promise.all(
+      moviesData.data.map(async (movie: { id: number }) => {
+        const movieRes = await fetch(`${import.meta.env.VITE_API_URL}/movies/${movie.id}`, {
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json"
+          }
+        })
+        const movieData = await movieRes.json()
+        return movieData.data
+      })
+    )
+
+    dispatch(setMovies(detailedMovies))
+  } catch (err) {
+    console.log("Error while sorting movies", err)
+  }
+}
+
 export async function addMovie() {
   const token = checkToken() || ""
 

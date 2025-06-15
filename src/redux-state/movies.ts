@@ -19,13 +19,12 @@ export const moviesSlice = createSlice({
   name: "movies",
   initialState,
   reducers: {
-    // getMovies: (state) => state
     setMovies: (state, action) => {
       state.data = action.payload
     },
     deleteMovie: (state, action) => {
       state.data = state.data.filter(movie => movie.id !== action.payload)
-    }
+    },
   }
 })
 

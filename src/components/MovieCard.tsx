@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import { deleteMovie, type MovieType } from '../redux-state/movies'
 import dvdImg from '../assets/cd.png'
 import vhsImg from '../assets/vhs.png'
 import deleteImg from '../assets/delete.png'
 import './css/MovieCard.css'
 import { useDispatch } from 'react-redux'
 import type { AppDispatch } from '../redux-state/store'
+import { deleteMovieById } from '../helpers'
+import type { MovieType } from '../redux-state/movies'
 
 type MovieCardProps = {
   movie: MovieType
@@ -25,7 +26,7 @@ export default function MovieCard({ movie }: MovieCardProps) {
           <p className='movie-year'>{movie.year}</p>
           <p className='movie-actors'>{movie.actors.map(actor => actor.name).join(", ")}</p>
         </div>
-        <button onClick={() => dispatch(deleteMovie(movie.id))} className='delete-btn'>
+        <button onClick={() => deleteMovieById(movie.id, dispatch)} className='delete-btn'>
           <img src={deleteImg} className='delete-img' alt="delete icon" />
         </button>
       </div>
