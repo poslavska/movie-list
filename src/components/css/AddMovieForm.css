@@ -30,7 +30,8 @@
   padding: 0.6em 0.4em;
 }
 
-.text-input:active {
+.text-input:focus,
+.number-input {
   outline: #457B9D;
 }
 

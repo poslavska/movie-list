@@ -77,3 +77,9 @@
 .movie-actors {
   font-size: 1.0625rem;
 }
+
+@media (min-width: 1037px) {
+  .movie-card {
+    width: 100%;
+  }
+}

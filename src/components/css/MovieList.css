@@ -111,3 +111,17 @@ h1 {
   border-radius: 3px;
   cursor: pointer;
 }
+
+@media (min-width: 1037px) {
+  .movies-wrapper {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 2em;
+    max-width: 1080px;
+  }
+
+  .movies-sort {
+    margin-left: 3em;
+  }
+}
