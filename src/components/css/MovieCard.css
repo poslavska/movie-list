@@ -1,5 +1,4 @@
 .movie-card {
-  justify-content: center;
   align-items: center;
   gap: 1.9em;
   border-radius: 5px;
@@ -21,8 +20,8 @@
 .movie-info {
   justify-content: space-between;
   gap: 1em;
+  width: 100%;
 }
-
 
 .dvd-background {
   background-color: #a2d9f7;
