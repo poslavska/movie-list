@@ -1,4 +1,4 @@
-form {
+.add-movie-form {
   display: flex;
   flex-direction: column;
   gap: 1.5em;
@@ -42,7 +42,7 @@ form {
 
 .radio-label {
   display: flex;
-  gap: 0.3em;
+  gap: 0.5em;
 }
 
 .submit-btn {

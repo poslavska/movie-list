@@ -39,7 +39,7 @@ export default function AddMovieForm({setFormActivated}: AddMovieFormProps) {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='add-movie-form'>
         <p className='form-title'>Your movie</p>
         <label className='text-group'>
           <p className='input-label'>Enter movie's title</p>

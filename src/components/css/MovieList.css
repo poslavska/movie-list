@@ -25,18 +25,11 @@
   cursor: pointer;
 }
 
-.own-movie-btn:hover {
-  background-color: #fff6e5;
-  color: #C1121F;
-  padding: 0.412em 1.325em;
-  border: 2px solid #C1121F;
-}
-
 h1 {
   font-size: 1.625rem;
   text-align: center;
-  margin-top: 1.625em;
-  margin-bottom: 1.4em;
+  margin-top: 1.75em;
+  margin-bottom: 1.25em;
 }
 
 .movie-list,
@@ -58,7 +51,7 @@ h1 {
   display: flex;
   justify-content: start;
   gap: 1.5em;
-  margin-bottom: 1.25em;
+  margin-bottom: 2em;
 }
 
 .sort-text {
@@ -80,4 +73,9 @@ h1 {
 .sort-icon {
   width: 23px;
   height: 23px;
+}
+
+.no-movies {
+  font-size: 1.125rem;
+  margin-top: 0.4em;
 }
