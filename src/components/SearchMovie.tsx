@@ -10,16 +10,19 @@ import './css/SearchMovie.css'
 export default function SearchMovie() {
   const [searchTerm, setSearchTerm] = useState('')
   const [searchType, setSearchType] = useState<'actor' | 'movie'>('actor')
+  const [searchBtnPressed, setSearchBtnPressed] = useState(false)
   const dispatch = useDispatch<AppDispatch>()
   const filteredMovies = useSelector((state: RootState) => state.movies.filtered)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    setSearchBtnPressed(true)
     searchMovie(searchType, searchTerm, dispatch)
   }
 
-  const clearMovieResults = () => {
+  function clearMovieResults() {
     dispatch(clearFilteredMovies())
+    setSearchBtnPressed(false)
     setSearchTerm("")
   }
 
@@ -57,7 +60,7 @@ export default function SearchMovie() {
           onChange={e => setSearchTerm(e.target.value)}
           required
           className='search-input'
-          placeholder='Titanic' />
+          placeholder={searchType === 'actor' ? 'Kyle MacLachlan' : 'Titanic'} />
           <button className='clear-btn' onClick={clearMovieResults}
           disabled={!searchTerm}>
             <img src={clearImg} alt="delete icon" className='clear-input-icon' />
@@ -65,11 +68,12 @@ export default function SearchMovie() {
         </div>
         <button type='submit' className='search-btn'>Search</button>
       </div>
-      {(filteredMovies.length > 0 || !searchTerm) ?
+      {(filteredMovies.length === 0 && searchTerm && searchBtnPressed) ?
+        <p className='no-results'>No results found</p>
+        :
         <div className='filtered-movies-wrapper'>
           {filteredMovies.map(movie => <MovieCard key={movie.id} movie={movie} />)}
         </div>
-        : <p className='no-results'>No results found</p>
       }
     </form>
   )

@@ -86,6 +86,23 @@ export async function deleteMovieById(id:number, dispatch: AppDispatch) {
   }
 }
 
+async function getMovieDetails(moviesData: { data: { id: number }[] }, token: string) {
+  const detailedMovies = await Promise.all(
+    moviesData.data.map(async (movie: { id: number }) => {
+      const movieRes = await fetch(`${import.meta.env.VITE_API_URL}/movies/${movie.id}`, {
+        headers: {
+          Authorization: token,
+          "Content-Type": "application/json"
+        }
+      })
+      const movieData = await movieRes.json()
+      return movieData.data
+    })
+  )
+
+  return detailedMovies
+}
+
 export async function sortAlphabetically(sort: string, order: string, dispatch: AppDispatch) {
   const token = checkToken() || ""
 
@@ -99,18 +116,7 @@ export async function sortAlphabetically(sort: string, order: string, dispatch: 
     })
     const moviesData = await response.json()
 
-    const detailedMovies = await Promise.all(
-      moviesData.data.map(async (movie: { id: number }) => {
-        const movieRes = await fetch(`${import.meta.env.VITE_API_URL}/movies/${movie.id}`, {
-          headers: {
-            Authorization: token,
-            "Content-Type": "application/json"
-          }
-        })
-        const movieData = await movieRes.json()
-        return movieData.data
-      })
-    )
+    const detailedMovies = await getMovieDetails(moviesData, token)
 
     dispatch(setMovies(detailedMovies))
   } catch (err) {
@@ -165,22 +171,37 @@ export async function searchMovie(searchType: string, searchText: string, dispat
 
     const moviesData = await response.json()
 
-    const detailedMovies = await Promise.all(
-      moviesData.data.map(async (movie: { id: number }) => {
-        const movieRes = await fetch(`${import.meta.env.VITE_API_URL}/movies/${movie.id}`, {
-          headers: {
-            Authorization: token,
-            "Content-Type": "application/json"
-          }
-        })
-        const movieData = await movieRes.json()
-        return movieData.data
-      })
-    )
+    const detailedMovies = await getMovieDetails(moviesData, token)
 
     dispatch(setFilteredMovies(detailedMovies))
 
   } catch (err) {
     console.log("Error while adding a movie", err)
+  }
+}
+
+export async function uploadMovieFile(
+  formdata: FormData,
+  setFileMsg: React.Dispatch<React.SetStateAction<string>>,
+  dispatch: AppDispatch
+) {
+  const token = checkToken() || ""
+
+  try {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/movies/import`, {
+      method: 'POST',
+      headers: {
+        'Authorization': token,
+      },
+      body: formdata
+    })
+
+    const data = await response.json()
+
+    setFileMsg("File uploaded successfully")
+
+    await fetchMovies(dispatch)
+  } catch (err) {
+    setFileMsg('File upload error')
   }
 }

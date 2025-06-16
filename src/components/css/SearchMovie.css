@@ -97,6 +97,7 @@ button:disabled {
   flex-direction: column;
   gap: 3.5em;
   margin-top: 2.875em;
+  margin-bottom: 3.5em;
 }
 
 .no-results {
