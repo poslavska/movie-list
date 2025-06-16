@@ -1,4 +1,5 @@
-import { deleteMovie, setMovies } from "./redux-state/movies"
+import type { UserMovieDataType } from "./components/AddMovieForm"
+import { deleteMovie, postNewMovie, setMovies } from "./redux-state/movies"
 import type { AppDispatch } from "./redux-state/store"
 
 export async function createSession(){
@@ -117,8 +118,13 @@ export async function sortAlphabetically(sort: string, order: string, dispatch: 
   }
 }
 
-export async function addMovie() {
+export async function addMovie(movie: UserMovieDataType, dispatch: AppDispatch) {
   const token = checkToken() || ""
+
+  if (!movie.title || !movie.year || !movie.format || !movie.actors) {
+    alert("Some required fields are missing")
+    return
+  }
 
   try {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/movies`, {
@@ -129,19 +135,16 @@ export async function addMovie() {
       },
       body: JSON.stringify(
         {
-          "title": "Blade Runner",
-          "year": 1982,
-          "format": "VHS",
-          "actors": [
-            "Harrison Ford",
-            "Rutger Hauer",
-            "Sean Young",
-            "Joanna Cassidy"
-          ]
+          title: movie.title,
+          year: Number(movie.year),
+          format: movie.format,
+          actors: movie.actors.split(',').map(name => name.trim())
         }
       )
     })
-    
+
+    await fetchMovies(dispatch)
+
   } catch (err) {
     console.log("Error while adding a movie", err)
   }

@@ -1,0 +1,64 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  margin-top: 3em;
+}
+
+.form-title {
+  font-size: 1.625rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.text-group,
+.year-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625em;
+}
+
+.input-label,
+.radio-text {
+  font-size: 1.125rem;
+  font-weight: 400;
+}
+
+.text-input,
+.number-input {
+  border-radius: 3px;
+  padding: 0.6em 0.4em;
+}
+
+.text-input:active {
+  outline: #457B9D;
+}
+
+.format-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+}
+
+.radio-label {
+  display: flex;
+  gap: 0.3em;
+}
+
+.submit-btn {
+  align-self: center;
+  border: none;
+  background-color: #1D3557;
+  color: #e3feff;
+  padding: 0.625em 1.825em;
+  border-radius: 3px;
+  font-size: 1.125rem;
+  font-family: Inter, serif;
+  margin-top: 0.825em;
+}
+
+.submit-btn:hover {
+  background-color: #e3feff;
+  color: #1D3557;
+  border: 1px solid #1D3557;
+}

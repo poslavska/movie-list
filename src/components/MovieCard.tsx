@@ -24,7 +24,17 @@ export default function MovieCard({ movie }: MovieCardProps) {
         <div className='movie-info-wrapper'>
           <p className='movie-title'>{movie.title}</p>
           <p className='movie-year'>{movie.year}</p>
-          <p className='movie-actors'>{movie.actors.map(actor => actor.name).join(", ")}</p>
+          <p className='movie-actors'>
+            {Array.isArray(movie.actors)
+              ? movie.actors.map(actor =>
+                  typeof actor === 'string'
+                    ? actor
+                    : actor.name
+                ).join(', ')
+              : typeof movie.actors === 'string'
+              ? movie.actors
+              : "No actors listed"}
+          </p>
         </div>
         <button onClick={() => deleteMovieById(movie.id, dispatch)} className='delete-btn'>
           <img src={deleteImg} className='delete-img' alt="delete icon" />
