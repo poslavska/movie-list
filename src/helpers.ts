@@ -1,5 +1,5 @@
 import type { UserMovieDataType } from "./components/AddMovieForm"
-import { deleteMovie, postNewMovie, setMovies } from "./redux-state/movies"
+import { deleteMovie, setFilteredMovies, setMovies } from "./redux-state/movies"
 import type { AppDispatch } from "./redux-state/store"
 
 export async function createSession(){
@@ -144,6 +144,41 @@ export async function addMovie(movie: UserMovieDataType, dispatch: AppDispatch) 
     })
 
     await fetchMovies(dispatch)
+
+  } catch (err) {
+    console.log("Error while adding a movie", err)
+  }
+}
+
+export async function searchMovie(searchType: string, searchText: string, dispatch: AppDispatch) {
+  const token = checkToken() || ""
+  const format = searchType === "actor" ? `actor=${searchText}` : `search=${searchText}`
+
+  try {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/movies?${format}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': token,
+        'Content-Type': 'application/json'
+      }
+    })
+
+    const moviesData = await response.json()
+
+    const detailedMovies = await Promise.all(
+      moviesData.data.map(async (movie: { id: number }) => {
+        const movieRes = await fetch(`${import.meta.env.VITE_API_URL}/movies/${movie.id}`, {
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json"
+          }
+        })
+        const movieData = await movieRes.json()
+        return movieData.data
+      })
+    )
+
+    dispatch(setFilteredMovies(detailedMovies))
 
   } catch (err) {
     console.log("Error while adding a movie", err)

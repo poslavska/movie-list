@@ -6,6 +6,7 @@ import './css/MovieList.css'
 import { sortAlphabetically } from '../helpers'
 import { useState } from 'react'
 import AddMovieForm from './AddMovieForm'
+import SearchMovie from './SearchMovie'
 
 export default function MovieList() {
   const movies = useSelector((state: RootState) => state.movies.data)
@@ -23,6 +24,8 @@ export default function MovieList() {
             <button onClick={() => setFormActivated(true)} className='own-movie-btn'>Let's go</button>
           </div>
           <hr style={{marginTop: "2.75em"}} />
+          <SearchMovie />
+          <hr />
           <h1>Browse our Movie List 🎬</h1>
           <div className='movies-sort'>
             <p className='sort-text'>Sort by</p>
@@ -34,10 +37,11 @@ export default function MovieList() {
               <img src={sortIcon} alt="alphabetical sort icon" className='sort-icon' /> Alphabetical
             </button>
           </div>
-          {movies.length > 0 && 
+          {movies.length > 0 ?
             <div className='movies-wrapper'>
               {movies.map(movie => <MovieCard key={movie.id} movie={movie} />)}
             </div>
+            : <p className='no-movies'>No movies here yet</p>
           }
         </>
       }

@@ -13,7 +13,7 @@ export type MovieType = {
   actors: ActorType[]
 }
 
-const initialState: { data: MovieType[]} = { data: []}
+const initialState: { data: MovieType[], filtered: MovieType[]} = { data: [], filtered: []}
 
 export const moviesSlice = createSlice({
   name: "movies",
@@ -27,9 +27,15 @@ export const moviesSlice = createSlice({
     },
     postNewMovie: (state, action) => {
       state.data = [...state.data, action.payload]
+    },
+    setFilteredMovies: (state, action) => {
+      state.filtered = action.payload
+    },
+    clearFilteredMovies: (state) => {
+      state.filtered = []
     }
   }
 })
 
-export const { setMovies, deleteMovie, postNewMovie } = moviesSlice.actions
+export const { setMovies, deleteMovie, postNewMovie, setFilteredMovies, clearFilteredMovies } = moviesSlice.actions
 export default moviesSlice.reducer

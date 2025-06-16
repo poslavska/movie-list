@@ -1,0 +1,115 @@
+.search-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2.5em;
+}
+
+.search-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-title {
+  font-size: 1.325rem;
+  font-weight: 500;
+  margin-bottom: 0.75em;
+}
+
+.radios {
+  display: flex;
+  justify-content: space-around;
+  gap: 0.5em;
+  margin-bottom: 1.5em;
+}
+
+.radio-text {
+  font-size: 1.0625rem;
+}
+
+.radio-label {
+  align-items: center;
+}
+
+.search-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  border: 2px solid #81b5cf;
+  width: 80%;
+}
+
+.input-icon-wrapper {
+  display: flex; 
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  border-right: 2px solid #81b5cf;
+}
+
+.search-wrapper, .search-input {
+  border-radius: 6px;
+}
+
+.search-wrapper, .search-input,
+.search-btn {
+  background-color: #fefaf5;
+}
+
+.search-input {
+  border: none;
+  padding: 0.4em 0.325em;
+  font-size: 1.125rem;
+  width: 73%;
+}
+
+.clear-input-icon {
+  width: 100%;
+}
+
+.clear-btn {
+  background: none;
+  border: none;
+  width: 29px;
+  height: 29px;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.search-btn {
+  border: none;
+  background: #abbcee;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0 0.325em;
+  cursor: pointer;
+  width: 27%;
+}
+
+.filtered-movies-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5em;
+  margin-top: 2.875em;
+}
+
+.no-results {
+  font-size: 1.325rem;
+  font-weight: 500;
+  margin: 1.325em 0;
+}
+
+.search-input:focus {
+  outline: none;
+  border: none;
+}
+
+.search-wrapper:focus-within {
+  border-color: #457b9d;
+}
