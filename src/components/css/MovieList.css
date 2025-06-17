@@ -33,7 +33,6 @@ h1 {
 }
 
 .movie-list,
-.movies-wrapper,
 .own-movie-wrapper {
   display: flex;
   flex-direction: column;
@@ -44,6 +43,8 @@ h1 {
 }
 
 .movies-wrapper {
+  display: flex;
+  flex-direction: column;
   gap: 3.5em;
 }
 
@@ -78,6 +79,7 @@ h1 {
 .no-movies {
   font-size: 1.125rem;
   margin-top: 0.4em;
+  text-align: center;
 }
 
 .or-text {
@@ -113,12 +115,12 @@ h1 {
 }
 
 @media (min-width: 1037px) {
-  .movies-wrapper {
+  .movie-list .movies-wrapper {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
-    gap: 2em;
-    max-width: 1080px;
+    gap: 2.25em;
+    max-width: 1030px;
   }
 
   .movies-sort {

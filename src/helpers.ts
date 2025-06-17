@@ -2,8 +2,10 @@ import type { UserMovieDataType } from "./components/AddMovieForm"
 import { deleteMovie, setFilteredMovies, setMovies } from "./redux-state/movies"
 import type { AppDispatch } from "./redux-state/store"
 
-export async function createSession(){
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/sessions`, {
+const windowImport = (window as any)
+
+export async function createUser(){
+  const response = await fetch(`${windowImport.VITE_API_URL}/users`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -11,8 +13,30 @@ export async function createSession(){
     },
     body: JSON.stringify(
       {
-        "email": import.meta.env.VITE_EMAIL,
-        "password": import.meta.env.VITE_PASSWORD
+        "email": windowImport.VITE_EMAIL,
+        "name": windowImport.VITE_NAME,
+        "password": windowImport.VITE_PASSWORD,
+        "confirmPassword": windowImport.VITE_PASSWORD
+      }
+    )
+  })
+
+  if (!response.ok) {
+    throw new Error("Sign up failed")
+  }
+}
+
+export async function createSession(){
+  const response = await fetch(`${windowImport.VITE_API_URL}/sessions`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(
+      {
+        "email": windowImport.VITE_EMAIL,
+        "password": windowImport.VITE_PASSWORD
       }
     )
   })
@@ -40,7 +64,7 @@ export async function fetchMovies(dispatch: AppDispatch) {
 
   try {
     //response from /movies didn't include actors in the movies for some reason
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/movies`, {
+    const response = await fetch(`${windowImport.VITE_API_URL}/movies`, {
       method: 'GET',
       headers: {
         'Authorization': token,
@@ -49,10 +73,16 @@ export async function fetchMovies(dispatch: AppDispatch) {
     })
     const moviesData = await response.json()
 
+    if (!moviesData?.data || moviesData.data.length === 0) {
+      console.log("No movies found")
+      dispatch(setMovies([]))
+      return
+    }
+
     //'fetch' for each movie by its id to get the list of actors
     const detailedMovies = await Promise.all(
       moviesData.data.map(async (movie: { id: number }) => {
-        const movieRes = await fetch(`${import.meta.env.VITE_API_URL}/movies/${movie.id}`, {
+        const movieRes = await fetch(`${windowImport.VITE_API_URL}/movies/${movie.id}`, {
           headers: {
             Authorization: token,
             "Content-Type": "application/json"
@@ -73,7 +103,7 @@ export async function deleteMovieById(id:number, dispatch: AppDispatch) {
   const token = checkToken() || ""
 
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/movies/${id}`, {
+    const response = await fetch(`${windowImport.VITE_API_URL}/movies/${id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': token,
@@ -89,7 +119,7 @@ export async function deleteMovieById(id:number, dispatch: AppDispatch) {
 async function getMovieDetails(moviesData: { data: { id: number }[] }, token: string) {
   const detailedMovies = await Promise.all(
     moviesData.data.map(async (movie: { id: number }) => {
-      const movieRes = await fetch(`${import.meta.env.VITE_API_URL}/movies/${movie.id}`, {
+      const movieRes = await fetch(`${windowImport.VITE_API_URL}/movies/${movie.id}`, {
         headers: {
           Authorization: token,
           "Content-Type": "application/json"
@@ -107,7 +137,7 @@ export async function sortAlphabetically(sort: string, order: string, dispatch: 
   const token = checkToken() || ""
 
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/movies?sort=${sort}&order=${order}`, {
+    const response = await fetch(`${windowImport.VITE_API_URL}/movies?sort=${sort}&order=${order}`, {
       method: 'GET',
       headers: {
         'Authorization': token,
@@ -133,7 +163,7 @@ export async function addMovie(movie: UserMovieDataType, dispatch: AppDispatch) 
   }
 
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/movies`, {
+    const response = await fetch(`${windowImport.VITE_API_URL}/movies`, {
       method: 'POST',
       headers: {
         'Authorization': token,
@@ -161,7 +191,7 @@ export async function searchMovie(searchType: string, searchText: string, dispat
   const format = searchType === "actor" ? `actor=${searchText}` : `search=${searchText}`
 
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/movies?${format}`, {
+    const response = await fetch(`${windowImport.VITE_API_URL}/movies?${format}`, {
       method: 'GET',
       headers: {
         'Authorization': token,
@@ -188,7 +218,7 @@ export async function uploadMovieFile(
   const token = checkToken() || ""
 
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/movies/import`, {
+    const response = await fetch(`${(window as any).VITE_API_URL}/movies/import`, {
       method: 'POST',
       headers: {
         'Authorization': token,

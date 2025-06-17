@@ -117,12 +117,6 @@ button:disabled {
 
 @media (min-width: 830px) {
   .search-wrapper {
-    width: 70%;
-  }
-}
-
-@media (min-width: 1037px) {
-  .search-wrapper {
-    width: 35%;
+    width: 80%;
   }
 }

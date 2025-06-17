@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import './fonts.css'
-import { createSession, fetchMovies } from './helpers'
+import { createSession, createUser, fetchMovies } from './helpers'
 import { useDispatch } from 'react-redux'
 import type { AppDispatch } from './redux-state/store'
 import MovieList from './components/MovieList'
@@ -12,7 +12,13 @@ export default function App() {
 
   useEffect(()=> {
     const init = async () => {
-      if (!localStorage.getItem("token")) { 
+      if (!localStorage.getItem("token") || localStorage.getItem("token") === 'undefined') {
+        try {
+          await createUser()
+        } catch (err) {
+          console.log("User might already exist, skipping creation", err)
+        }
+
         try {
           await createSession()
         } catch (err) {
